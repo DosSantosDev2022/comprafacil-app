@@ -2,10 +2,14 @@ import { BenefitsSection } from '@/components/global/BenefitsSection'
 import { Carousel } from '@/components/global/carousel'
 import { ProductList } from '@/components/global/ProductList'
 import { productsData } from '@/config/products'
+import { GET_PRODUCTS } from '@/services/products'
 import Image from 'next/image'
 import { v4 as uuidv4 } from 'uuid'
+import page from './(pages)/cupons/page'
 
-export default function Home() {
+export default async function Home() {
+	const { products } = await GET_PRODUCTS()
+	console.log('produtos:', products)
 	const images = [
 		{
 			id: uuidv4(),
@@ -43,11 +47,8 @@ export default function Home() {
 			<BenefitsSection />
 
 			<div className='border mt-4'>
-				<ProductList
-					title='Produtos em destaques'
-					products={productsData}
-				/>
-				<ProductList title='Mais vendidos' products={productsData} />
+				<ProductList title='Produtos em destaques' products={products} />
+				<ProductList title='Mais vendidos' products={products} />
 			</div>
 		</div>
 	)

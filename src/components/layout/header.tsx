@@ -13,6 +13,7 @@ import { LuMenu, LuX } from 'react-icons/lu'
 import { categories, links } from '@/config/categories'
 import Link from 'next/link'
 import { Button } from '../ui/button'
+import { FaBagShopping } from 'react-icons/fa6'
 
 const Header = () => {
 	const [searchTerm, setSearchTerm] = useState('')
@@ -25,9 +26,11 @@ const Header = () => {
 	return (
 		<header className='bg-primary shadow-md p-4 lg:p-8 flex lg:flex-row flex-col items-center justify-between'>
 			<div className='flex justify-between  w-full items-center'>
-				<h1 className='w-full text-4xl font-extrabold text-secondary'>
-					Meli Shop
-				</h1>
+				<div className='flex items-center justify-center space-x-3 text-secondary'>
+					<FaBagShopping size={46} />
+					<h1 className='w-full text-4xl font-extrabold '>Meli Shop</h1>
+				</div>
+
 				<div className='md:hidden'>
 					<Button variants='outline' sizes='icon' onClick={toggleMenu}>
 						{isMenuOpen ? (

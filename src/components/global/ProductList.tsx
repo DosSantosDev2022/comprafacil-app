@@ -1,8 +1,8 @@
-import type { Product } from '@/@types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '../ui/button'
 import { FaLink } from 'react-icons/fa'
+import type { Product } from '@/services/products'
 
 interface ProductListProps {
 	products: Product[]
@@ -20,16 +20,16 @@ const ProductList = ({ products, title }: ProductListProps) => {
 					{products.map((product) => (
 						<div
 							key={product.id}
-							className='flex flex-col justify-between border border-border rounded-lg overflow-hidden shadow'
+							className='flex flex-col justify-between border border-border rounded-lg overflow-hidden shadow p-4'
 						>
 							<Image
-								src={product.image}
+								src={product.image?.url}
 								alt={product.title}
 								width={500}
 								height={300}
-								className='w-full h-48 object-cover'
+								className='w-full h-48 object-cover border border-border'
 							/>
-							<div className='p-4'>
+							<div className=''>
 								<h3 className='text-xl font-semibold mb-2'>
 									{product.title}
 								</h3>
@@ -45,7 +45,7 @@ const ProductList = ({ products, title }: ProductListProps) => {
 									<Link
 										target='_blank'
 										className='space-x-2'
-										href={product.link}
+										href={product.url || ''}
 									>
 										Ver Produto <FaLink />
 									</Link>
