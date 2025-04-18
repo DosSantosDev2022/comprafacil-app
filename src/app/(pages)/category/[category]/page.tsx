@@ -2,19 +2,18 @@ import { ProductList } from '@/components/global/ProductList'
 import { GET_PRODUCTS } from '@/services/products'
 
 interface CategoryParams {
-	params: {
-		category: string
-	}
+	params: Promise<{ category: string }>
 }
 
 export default async function Category({ params }: CategoryParams) {
+	const category = await params
 	const capitalizeFirstLetter = (text: string) =>
 		text.charAt(0).toUpperCase() + text.slice(1)
 
 	const { products } = await GET_PRODUCTS()
 
 	const productsCategories = products.filter(
-		(p) => p.category.url === params.category,
+		(p) => p.category.url === category.category,
 	)
 
 	return (
@@ -23,7 +22,7 @@ export default async function Category({ params }: CategoryParams) {
 				<h1 className='text-4xl font-bold'>
 					Categoria{' '}
 					<span className='text-primary'>
-						{capitalizeFirstLetter(params.category)}
+						{capitalizeFirstLetter(category.category)}
 					</span>
 				</h1>
 			</div>

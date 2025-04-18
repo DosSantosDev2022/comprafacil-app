@@ -1,16 +1,13 @@
 import { ProductList } from '@/components/global/ProductList'
 import { GET_PRODUCTS } from '@/services/products'
 
-interface CategoryParams {
-	searchParams: {
-		query: string
-	}
+interface PageProps {
+	searchParams: Promise<{ query?: string }>
 }
 
-export default async function SearchPage({
-	searchParams,
-}: CategoryParams) {
-	const searchTerm = searchParams.query?.toLowerCase() || ''
+export default async function SearchPage({ searchParams }: PageProps) {
+	const { query } = await searchParams
+	const searchTerm = query?.toLowerCase() || ''
 	const capitalizeFirstLetter = (text: string) =>
 		text.charAt(0).toUpperCase() + text.slice(1)
 
@@ -31,14 +28,14 @@ export default async function SearchPage({
 				<h1 className='text-4xl font-bold'>
 					Buscado por:{' '}
 					<span className='text-primary'>
-						{capitalizeFirstLetter(searchParams.query)}
+						{capitalizeFirstLetter(query || '')}
 					</span>
 				</h1>
 			</div>
 			<div className='border border-border mt-4'>
 				{filteredProducts ? (
 					<ProductList
-						title={`Produtos encontrados para busca: ${searchParams.query}`}
+						title={`Produtos encontrados para busca: ${query}`}
 						products={filteredProducts}
 					/>
 				) : (
