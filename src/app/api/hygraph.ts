@@ -9,6 +9,7 @@ export const fetchHygraphQuery = async <T>(
 		headers: {
 			'Content-Type': 'application/json',
 			Accept: 'application/json',
+			Authorization: `Bearer ${process.env.HYGRAPH_TOKEN}`,
 		},
 		cache,
 		next: revalidate ? { revalidate } : undefined,

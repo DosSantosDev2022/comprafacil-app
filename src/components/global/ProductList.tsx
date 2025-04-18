@@ -20,20 +20,28 @@ const ProductList = ({ products, title }: ProductListProps) => {
 					{products.map((product) => (
 						<div
 							key={product.id}
-							className='flex flex-col justify-between border border-border rounded-lg overflow-hidden shadow p-4'
+							className='flex flex-col relative justify-between border border-border rounded-lg overflow-hidden shadow p-4'
 						>
+							<Image
+								className='absolute top-0 rounded-full'
+								alt={product.affiliate.name}
+								src={product.affiliate.image.url}
+								width={50}
+								height={50}
+								quality={100}
+							/>
 							<Image
 								src={product.image?.url}
 								alt={product.title}
 								width={500}
 								height={300}
-								className='w-full h-48 object-cover border border-border'
+								className='w-full h-48 object-contain border border-border'
 							/>
-							<div className=''>
-								<h3 className='text-xl font-semibold mb-2'>
+							<div className='p-2'>
+								<h3 className='text-lg font-semibold mb-2'>
 									{product.title}
 								</h3>
-								<p className='text-muted-foreground mb-4'>
+								<p className='text-muted-foreground mb-2 text-sm'>
 									{product.description}
 								</p>
 								<Button

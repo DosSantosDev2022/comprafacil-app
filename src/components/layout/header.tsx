@@ -10,10 +10,12 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { useState } from 'react'
 import { LuMenu, LuX } from 'react-icons/lu'
-import { categories, links } from '@/config/categories'
+import { Categories } from '@/config/categories'
 import Link from 'next/link'
 import { Button } from '../ui/button'
 import { FaBagShopping } from 'react-icons/fa6'
+import { v4 } from 'uuid'
+import { InputSearch } from '../global/inputSearch'
 
 const Header = () => {
 	const [searchTerm, setSearchTerm] = useState('')
@@ -23,13 +25,34 @@ const Header = () => {
 		setIsMenuOpen(!isMenuOpen)
 	}
 
+	const NavLinks = [
+		{
+			id: v4(),
+			label: 'Cupons',
+			url: '/cupons',
+		},
+		{
+			id: v4(),
+			label: 'Promoções',
+			url: '/promocoes',
+		},
+	]
+
 	return (
 		<header className='bg-primary shadow-md p-4 lg:p-8 flex lg:flex-row flex-col items-center justify-between'>
 			<div className='flex justify-between  w-full items-center'>
-				<div className='flex items-center justify-center space-x-3 text-secondary'>
+				<Link
+					className='flex items-start justify-center space-x-3 text-secondary'
+					href={'/'}
+				>
 					<FaBagShopping size={46} />
-					<h1 className='w-full text-4xl font-extrabold '>Meli Shop</h1>
-				</div>
+					<div className='flex flex-col items-end gap-1'>
+						<h1 className='text-4xl font-extrabold leading-none'>
+							Compra fácil
+						</h1>
+						<span className='text-sm italic text-muted'>afiliado</span>
+					</div>
+				</Link>
 
 				<div className='md:hidden'>
 					<Button variants='outline' sizes='icon' onClick={toggleMenu}>
@@ -47,11 +70,10 @@ const Header = () => {
 					isMenuOpen ? 'flex' : 'hidden lg:flex'
 				}`}
 			>
-				<nav className='flex lg:flex-row flex-col w-full'>
-					{links.map((link) => (
+				<nav className='flex lg:flex-row flex-col w-full justify-end'>
+					{NavLinks.map((link) => (
 						<Button
-							sizes='full'
-							className='lg:justify-center justify-start'
+							className=' text-lg lg:justify-center justify-start'
 							variants='link'
 							key={link.id}
 							asChild
@@ -65,33 +87,28 @@ const Header = () => {
 						</Button>
 					))}
 
-					{categories.map((category) => (
-						<DropDownRoot key={category.label}>
-							<DropDownTrigger
-								sizes='full'
-								className='justify-start text-secondary font-semibold'
-								variants='link'
-							>
-								{category.label}
-							</DropDownTrigger>
-							<DropDownContent className='w-56'>
-								<DropDownLabel>Categorias</DropDownLabel>
-								<DropDownList>
-									{category.items.map((item) => (
-										<DropDownItem key={item}>{item}</DropDownItem>
-									))}
-								</DropDownList>
-							</DropDownContent>
-						</DropDownRoot>
-					))}
+					<DropDownRoot>
+						<DropDownTrigger
+							className='text-lg justify-start text-secondary font-semibold'
+							variants='link'
+						>
+							Categorias
+						</DropDownTrigger>
+						<DropDownContent className='w-56'>
+							<DropDownLabel>Categorias</DropDownLabel>
+							<DropDownList>
+								{Categories.map((category) => (
+									<DropDownItem key={category.id}>
+										<Link href={`/category${category.url}`}>
+											{category.category}
+										</Link>
+									</DropDownItem>
+								))}
+							</DropDownList>
+						</DropDownContent>
+					</DropDownRoot>
 				</nav>
-				<Input
-					type='text'
-					placeholder='Buscar produtos...'
-					value={searchTerm}
-					onChange={(e) => setSearchTerm(e.target.value)}
-					className='w-64'
-				/>
+				<InputSearch />
 			</div>
 		</header>
 	)

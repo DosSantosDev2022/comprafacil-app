@@ -13,6 +13,15 @@ interface HygraphResponse {
   id: string;
   title: string;
   description: string;
+    affiliate: {
+      name: string
+      image : {
+        url: string
+      }
+    }
+  category: {
+    url: string
+  }
   url: string;
   image: {
     url: string
@@ -33,6 +42,15 @@ export const GET_PRODUCTS = async ():Promise<Data> => {
         slug
         title
         description
+        affiliate {
+         name
+         image {
+             url
+           }
+         }
+        category {
+         url
+        }
         url
         image {
           url
@@ -52,11 +70,7 @@ export const GET_PRODUCTS = async ():Promise<Data> => {
 	const response = await fetchHygraphQuery<HygraphResponse>(
 		query,
 		/* variables, */
-    {
-      cache: 'no-cache',
-    }
 	)
-  console.log('response:',response)
 	const { products,productsConnection } = response
 
 	if (!products || !productsConnection) {
