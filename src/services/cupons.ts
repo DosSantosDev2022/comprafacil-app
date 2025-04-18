@@ -1,22 +1,22 @@
-import { fetchHygraphQuery } from "@/app/api/hygraph";
+import { fetchHygraphQuery } from '@/app/api/hygraph'
 
 interface HygraphResponse {
-  cupons: Cupom[];
+	cupons: Cupom[]
 }
 
 export type Cupom = {
-  id: string;
-  label: string;
-  description: string;
-  validity: string;
-};
+	id: string
+	label: string
+	description: string
+	validity: string
+}
 
 export type Data = {
-  cupons: Cupom[];
-};
+	cupons: Cupom[]
+}
 
 export const GET_CUPONS = async (): Promise<Data> => {
-  const query = `
+	const query = `
       query MyQuery {
         cupons {
           id
@@ -26,13 +26,13 @@ export const GET_CUPONS = async (): Promise<Data> => {
         }
       }
     `
-  const response = await fetchHygraphQuery<HygraphResponse>(query);
+	const response = await fetchHygraphQuery<HygraphResponse>(query)
 
-  const { cupons } = response;
+	const { cupons } = response
 
-  if (!cupons) {
-    throw new Error("Erro ao buscar cupons");
-  }
+	if (!cupons) {
+		throw new Error('Erro ao buscar cupons')
+	}
 
-  return { cupons };
-};
+	return { cupons }
+}

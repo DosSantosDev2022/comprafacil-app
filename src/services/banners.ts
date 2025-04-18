@@ -1,21 +1,19 @@
-import { fetchHygraphQuery } from "@/app/api/hygraph";
+import { fetchHygraphQuery } from '@/app/api/hygraph'
 
 interface HygraphResponse {
-  assets: Asset[];
+	assets: Asset[]
 }
 export type Asset = {
-  id: string;
-  url: string;
-};
+	id: string
+	url: string
+}
 
 export type AssetsQueryResponse = {
-  assets: Asset[];
-};
-
-
+	assets: Asset[]
+}
 
 export const GET_BANNERS = async () => {
-  const query = `
+	const query = `
    query MyQuery {
       assets(where: {fileName_contains: "banner"}) {
         id
@@ -24,13 +22,13 @@ export const GET_BANNERS = async () => {
     }
   `
 
-  const response = await fetchHygraphQuery<HygraphResponse>(query);
+	const response = await fetchHygraphQuery<HygraphResponse>(query)
 
-  const {assets} = response
+	const { assets } = response
 
-  if(!assets) {
-    throw new Error('Erro ao buscar banners')
-  }
+	if (!assets) {
+		throw new Error('Erro ao buscar banners')
+	}
 
-  return {assets}
+	return { assets }
 }

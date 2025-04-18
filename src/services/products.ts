@@ -1,41 +1,40 @@
-import { fetchHygraphQuery } from "@/app/api/hygraph"
+import { fetchHygraphQuery } from '@/app/api/hygraph'
 
 interface HygraphResponse {
-  products: Product[];
-  productsConnection: {
-    aggregate: {
-      count: number;
-    };
-  };
+	products: Product[]
+	productsConnection: {
+		aggregate: {
+			count: number
+		}
+	}
 }
 
- export interface Product {
-  id: string;
-  title: string;
-  description: string;
-    affiliate: {
-      name: string
-      image : {
-        url: string
-      }
-    }
-  category: {
-    url: string
-  }
-  url: string;
-  image: {
-    url: string
-  }
+export interface Product {
+	id: string
+	title: string
+	description: string
+	affiliate: {
+		name: string
+		image: {
+			url: string
+		}
+	}
+	category: {
+		url: string
+	}
+	url: string
+	image: {
+		url: string
+	}
 }
 
 interface Data {
-  products: Product[];
-  totalCount: number
+	products: Product[]
+	totalCount: number
 }
 
-
-export const GET_PRODUCTS = async ():Promise<Data> => {
-  const query = `
+export const GET_PRODUCTS = async (): Promise<Data> => {
+	const query = `
     query MyQuery {
       products {
         id
@@ -64,19 +63,19 @@ export const GET_PRODUCTS = async ():Promise<Data> => {
     }
   `
 
-  /* const skip = (page - 1) * pageSize
+	/* const skip = (page - 1) * pageSize
 	const variables = { first: pageSize, skip } */
 
 	const response = await fetchHygraphQuery<HygraphResponse>(
 		query,
 		/* variables, */
 	)
-	const { products,productsConnection } = response
+	const { products, productsConnection } = response
 
 	if (!products || !productsConnection) {
 		throw new Error('Failed to fetch projects or projectConnection')
 	}
 
 	const totalCount = productsConnection.aggregate.count
-	return { products,totalCount }
+	return { products, totalCount }
 }

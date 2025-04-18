@@ -1,120 +1,120 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-hover: var(--primary-hover);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-hover: var(--secondary-hover);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-hover: var(--muted-hover);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-danger: var(--danger);
-  --color-danger-hover: var(--danger-hover);
-  --color-danger-foreground: var(--danger-foreground);
-  --color-warning: var(--warning);
-  --color-warning-hover: var(--warning-hover);
-  --color-warning-foreground: var(--warning-foreground);
-  --color-success: var(--success);
-  --color-success-hover: var(--success-hover);
-  --color-success-foreground: var(--success-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-primary: var(--primary);
+	--color-primary-hover: var(--primary-hover);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-secondary: var(--secondary);
+	--color-secondary-hover: var(--secondary-hover);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-hover: var(--muted-hover);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-accent: var(--accent);
+	--color-accent-hover: var(--accent-hover);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-danger: var(--danger);
+	--color-danger-hover: var(--danger-hover);
+	--color-danger-foreground: var(--danger-foreground);
+	--color-warning: var(--warning);
+	--color-warning-hover: var(--warning-hover);
+	--color-warning-foreground: var(--warning-foreground);
+	--color-success: var(--success);
+	--color-success-hover: var(--success-hover);
+	--color-success-foreground: var(--success-foreground);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
 }
 
 @layer base {
-  :root {
-    --background: hsl(269 0% 100%); /* Branco (Fundo) */
-    --foreground: hsl(269 0% 10%); /* Preto (Texto) */
+	:root {
+		--background: hsl(269 0% 100%); /* Branco (Fundo) */
+		--foreground: hsl(269 0% 10%); /* Preto (Texto) */
 
-    --primary: hsl(269, 76%, 20%); /* Amarelo (Principal) */
-    --primary-hover: hsl(269, 76%, 30%);
-    --primary-foreground: hsl(0 0% 100%); /* Preto (Texto) */
-    --secondary: hsl(269 10% 90%); /* Cinza (Secundário) */
-    --secondary-hover: hsl(204 10% 80%);
-    --secondary-foreground: hsl(0 0% 0%);
-    --muted: hsl(231 10% 95%);
-    --muted-hover: hsl(166 10% 85%);
-    --muted-foreground: hsl(269 0% 40%);
-    --accent: hsl(231 10% 90%);
-    --accent-hover: hsl(166 10% 80%);
-    --accent-foreground: hsl(269 0% 15%);
+		--primary: hsl(269, 76%, 20%); /* Amarelo (Principal) */
+		--primary-hover: hsl(269, 76%, 30%);
+		--primary-foreground: hsl(0 0% 100%); /* Preto (Texto) */
+		--secondary: hsl(269 10% 90%); /* Cinza (Secundário) */
+		--secondary-hover: hsl(204 10% 80%);
+		--secondary-foreground: hsl(0 0% 0%);
+		--muted: hsl(231 10% 95%);
+		--muted-hover: hsl(166 10% 85%);
+		--muted-foreground: hsl(269 0% 40%);
+		--accent: hsl(231 10% 90%);
+		--accent-hover: hsl(166 10% 80%);
+		--accent-foreground: hsl(269 0% 15%);
 
-    --danger: hsl(0, 100%, 68%);
-    --danger-hover: hsl(0, 71%, 58%);
-    --danger-foreground: hsl(0, 0%, 97%);
-    --warning: hsl(44, 90%, 61%);
-    --warning-hover: hsl(43, 77%, 57%);
-    --warning-foreground: hsl(0, 0%, 10%);
-    --success: hsl(120, 39%, 54%);
-    --success-hover: hsl(120, 39%, 49%);
-    --success-foreground: hsl(0, 0%, 97%);
+		--danger: hsl(0, 100%, 68%);
+		--danger-hover: hsl(0, 71%, 58%);
+		--danger-foreground: hsl(0, 0%, 97%);
+		--warning: hsl(44, 90%, 61%);
+		--warning-hover: hsl(43, 77%, 57%);
+		--warning-foreground: hsl(0, 0%, 10%);
+		--success: hsl(120, 39%, 54%);
+		--success-hover: hsl(120, 39%, 49%);
+		--success-foreground: hsl(0, 0%, 97%);
 
-    --border: hsl(269 20% 82%);
-    --ring: hsl(269 76.5% 20%);
-    --input: hsl(269 76.5% 10%);
-  }
+		--border: hsl(269 20% 82%);
+		--ring: hsl(269 76.5% 20%);
+		--input: hsl(269 76.5% 10%);
+	}
 }
 
 @layer utilities {
-  @keyframes dropdown-in {
-    from {
-      height: 0;
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      height: var(--dropdown-content-height);
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
+	@keyframes dropdown-in {
+		from {
+			height: 0;
+			opacity: 0;
+			transform: scale(0.95);
+		}
+		to {
+			height: var(--dropdown-content-height);
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
 
-  @keyframes dropdown-up {
-    from {
-      height: var(--dropdown-content-height);
-      opacity: 1;
-      transform: scale(1);
-    }
-    to {
-      height: 0;
-      opacity: 0;
-      transform: scale(0.95);
-    }
-  }
+	@keyframes dropdown-up {
+		from {
+			height: var(--dropdown-content-height);
+			opacity: 1;
+			transform: scale(1);
+		}
+		to {
+			height: 0;
+			opacity: 0;
+			transform: scale(0.95);
+		}
+	}
 
-  .animate-dropdown-in {
-    animation: dropdown-in 0.3s ease-out forwards;
-  }
+	.animate-dropdown-in {
+		animation: dropdown-in 0.3s ease-out forwards;
+	}
 
-  .animate-dropdown-up {
-    animation: dropdown-up 0.3s ease-in forwards;
-  }
+	.animate-dropdown-up {
+		animation: dropdown-up 0.3s ease-in forwards;
+	}
 }
 
 /* Estilos para a barra de rolagem no modo light */
 .scrollbar-custom::-webkit-scrollbar {
-  width: 8px;
+	width: 8px;
 }
 
 .scrollbar-custom::-webkit-scrollbar-track {
-  background-color: var(--secondary);
+	background-color: var(--secondary);
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
-  background-color: var(--primary);
-  border-radius: 4px;
+	background-color: var(--primary);
+	border-radius: 4px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+	background: var(--background);
+	color: var(--foreground);
+	font-family: Arial, Helvetica, sans-serif;
 }
