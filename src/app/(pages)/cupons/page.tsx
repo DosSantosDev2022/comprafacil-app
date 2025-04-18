@@ -1,5 +1,4 @@
-'use client'
-import { Button } from '@/components/ui/button'
+import { CopyCupom } from '@/components/pages/cupom/copyCupom'
 import {
 	Card,
 	CardContent,
@@ -7,54 +6,13 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { useNotification } from '@/context/notification'
+
+import { GET_CUPONS } from '@/services/cupons'
 import { BiSolidCoupon } from 'react-icons/bi'
 
-export default function CuponsPage() {
-	const { showNotification } = useNotification()
-	const coupons = [
-		{
-			id: 1,
-			code: 'DESCONTO10',
-			description: '10% de desconto em todos os produtos',
-			expires: '20/04/2025',
-		},
-		{
-			id: 2,
-			code: 'FRETEGRATIS',
-			description: 'Frete grátis para compras acima de R$100',
-			expires: '31/12/2023',
-		},
-		{
-			id: 3,
-			code: 'PRIMEIRACOMPRA',
-			description: '15% de desconto na primeira compra',
-			expires: '30/05/2025',
-		},
-		{
-			id: 4,
-			code: 'BEMVINDO',
-			description: '20% de desconto para novos clientes',
-			expires: '15/08/2025',
-		},
-		{
-			id: 5,
-			code: 'PROMO50',
-			description: '50% de desconto em produtos selecionados',
-			expires: '31/12/2023',
-		},
-	]
-
-	const handleCopyCoupon = (code: string) => {
-		navigator.clipboard.writeText(code)
-		showNotification('Cupom copiado com sucesso !!', 'success')
-	}
-
-	const isCouponExpired = (expires: string) => {
-		const today = new Date()
-		const expiresDate = new Date(expires.split('/').reverse().join('-'))
-		return expiresDate < today
-	}
+export default async function CuponsPage() {
+	const { cupons } = await GET_CUPONS()
+	/* const { showNotification } = useNotification() */
 
 	return (
 		<div className='lg:p-20 p-2'>
@@ -65,34 +23,17 @@ export default function CuponsPage() {
 				</h1>
 			</div>
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
-				{coupons.map((coupon) => (
-					<Card key={coupon.id}>
+				{cupons.map((cupom) => (
+					<Card key={cupom.id}>
 						<CardHeader>
-							<CardTitle>{coupon.code}</CardTitle>
-							<CardDescription>{coupon.description}</CardDescription>
+							<CardTitle>{cupom.label}</CardTitle>
+							<CardDescription>{cupom.description}</CardDescription>
 						</CardHeader>
 						<CardContent>
 							<CardDescription>
-								Válido até: {coupon.expires}
+								Vence em : {cupom.validity}
 							</CardDescription>
-							{isCouponExpired(coupon.expires) ? (
-								<Button
-									variants='disabled'
-									sizes='full'
-									className='mt-4 cursor-pointer'
-									onClick={() => handleCopyCoupon(coupon.code)}
-								>
-									Cupom expirado
-								</Button>
-							) : (
-								<Button
-									sizes='full'
-									className='mt-4 cursor-pointer'
-									onClick={() => handleCopyCoupon(coupon.code)}
-								>
-									Copiar Cupom
-								</Button>
-							)}
+							<CopyCupom cupom={cupom} />
 						</CardContent>
 					</Card>
 				))}

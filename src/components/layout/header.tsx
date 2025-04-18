@@ -25,16 +25,21 @@ const Header = () => {
 		setIsMenuOpen(!isMenuOpen)
 	}
 
-	const NavLinks = [
+	const afiliatedLinks = [
 		{
 			id: v4(),
-			label: 'Cupons',
-			url: '/cupons',
+			label: 'Mercado Livre',
+			url: 'mercadolivre',
 		},
 		{
 			id: v4(),
-			label: 'Promoções',
-			url: '/promocoes',
+			label: 'Amazon',
+			url: 'amazon',
+		},
+		{
+			id: v4(),
+			label: 'Shoope',
+			url: 'shoope',
 		},
 	]
 
@@ -45,7 +50,6 @@ const Header = () => {
 					className='flex items-start justify-center space-x-3 text-secondary'
 					href={'/'}
 				>
-					<FaBagShopping size={46} />
 					<div className='flex flex-col items-end gap-1'>
 						<h1 className='text-4xl font-extrabold leading-none'>
 							Compra fácil
@@ -71,21 +75,35 @@ const Header = () => {
 				}`}
 			>
 				<nav className='flex lg:flex-row flex-col w-full justify-end'>
-					{NavLinks.map((link) => (
-						<Button
-							className=' text-lg lg:justify-center justify-start'
-							variants='link'
-							key={link.id}
-							asChild
+					<Button
+						className=' text-lg lg:justify-center justify-start'
+						variants='link'
+						asChild
+					>
+						<Link
+							className='text-secondary font-semibold truncate'
+							href={'/cupons'}
 						>
-							<Link
-								className='text-secondary font-semibold truncate'
-								href={link.url}
-							>
-								{link.label}
-							</Link>
-						</Button>
-					))}
+							Cupons
+						</Link>
+					</Button>
+					<DropDownRoot>
+						<DropDownTrigger
+							className='text-lg justify-start text-secondary font-semibold'
+							variants='link'
+						>
+							Afiliado
+						</DropDownTrigger>
+						<DropDownContent className='w-56'>
+							<DropDownList>
+								{afiliatedLinks.map((link) => (
+									<DropDownItem key={link.id}>
+										<Link href={`/${link.url}`}>{link.label}</Link>
+									</DropDownItem>
+								))}
+							</DropDownList>
+						</DropDownContent>
+					</DropDownRoot>
 
 					<DropDownRoot>
 						<DropDownTrigger
@@ -95,7 +113,6 @@ const Header = () => {
 							Categorias
 						</DropDownTrigger>
 						<DropDownContent className='w-56'>
-							<DropDownLabel>Categorias</DropDownLabel>
 							<DropDownList>
 								{Categories.map((category) => (
 									<DropDownItem key={category.id}>
