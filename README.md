@@ -2,7 +2,7 @@
 
 ## 📜 Sobre o Projeto
 
-**Linkify** é uma plataforma web simples e eficiente para agrupar e divulgar links de afiliados de grandes empresas como **Mercado Livre**, **Amazon** e **Shopee**. A proposta do projeto é facilitar o acesso e a organização de links de afiliados em um único lugar, com uma interface intuitiva, responsiva e preparada para converter visitantes em comissões de afiliado.
+**Compra Fácil** é uma plataforma web simples e eficiente para agrupar e divulgar links de afiliados de grandes empresas como **Mercado Livre**, **Amazon** e **Shopee**. A proposta do projeto é facilitar o acesso e a organização de links de afiliados em um único lugar, com uma interface intuitiva, responsiva e preparada para converter visitantes em comissões de afiliado.
 
 ## 🛠️ Tecnologias e Ferramentas
 
