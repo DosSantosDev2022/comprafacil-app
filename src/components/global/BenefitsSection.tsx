@@ -24,8 +24,8 @@ const BenefitsSection = () => {
 		{
 			id: uuidv4(),
 			icon: <FaShieldAlt size={32} />,
-			title: 'Afiliado ML',
-			description: 'O melhor lugar para comprar é aqui',
+			title: 'Afiliado seguro',
+			description: 'As melhores ofertas das melhores lojas online',
 		},
 	]
 
