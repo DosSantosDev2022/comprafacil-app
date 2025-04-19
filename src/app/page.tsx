@@ -1,9 +1,11 @@
 import { BenefitsSection } from '@/components/global/BenefitsSection'
 import { Carousel } from '@/components/global/carousel'
 import { ProductList } from '@/components/global/ProductList'
+import { Button } from '@/components/ui/button'
 import { GET_BANNERS } from '@/services/banners'
 import { GET_PRODUCTS } from '@/services/products'
 import Image from 'next/image'
+import Link from 'next/link'
 import { v4 as uuidv4 } from 'uuid'
 
 export default async function Home() {
@@ -36,20 +38,26 @@ export default async function Home() {
 			<BenefitsSection />
 
 			<div className='border border-border mt-4'>
-				{freemarketproducts.length === 0 ? (
-					<></>
-				) : (
+				<section>
 					<ProductList
 						title='Produtos Mercado Livre'
 						products={freemarketproducts}
 					/>
-				)}
+					<div className='p-4 flex justify-end'>
+						<Button asChild>
+							<Link href={'/mercadolivre'}>Ver mais...</Link>
+						</Button>
+					</div>
+				</section>
 
-				{amazonproducts.length === 0 ? (
-					<></>
-				) : (
+				<section>
 					<ProductList title='Produtos Amazon' products={amazonproducts} />
-				)}
+					<div className='p-4 flex justify-end'>
+						<Button asChild>
+							<Link href={'/amazon'}>Ver mais...</Link>
+						</Button>
+					</div>
+				</section>
 			</div>
 		</div>
 	)

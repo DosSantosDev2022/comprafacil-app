@@ -33,10 +33,14 @@ interface Data {
 	totalCount: number
 }
 
-export const GET_PRODUCTS = async (): Promise<Data> => {
+export const GET_PRODUCTS_PAGINATION = async (
+	affiliate: string,
+	page: number,
+	pageSize: number,
+): Promise<Data> => {
 	const query = `
-    query MyQuery {
-      products(first:20,orderBy: createdAt_DESC){
+    query MyQuery($affiliate: String, $first:Int, $skip:Int) {
+      products (where: {affiliate: {name: $affiliate}},first:$first, skip:$skip) {
         id
         slug
         title
@@ -63,12 +67,12 @@ export const GET_PRODUCTS = async (): Promise<Data> => {
     }
   `
 
-	/* const skip = (page - 1) * pageSize
-	const variables = { first: pageSize, skip } */
+	const skip = (page - 1) * pageSize
+	const variables = { affiliate, first: pageSize, skip }
 
 	const response = await fetchHygraphQuery<HygraphResponse>(
 		query,
-		/* variables, */
+		variables,
 	)
 	const { products, productsConnection } = response
 

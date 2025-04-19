@@ -1,15 +1,25 @@
-import { BenefitsSection } from '@/components/global/BenefitsSection'
+import { PaginationButtons } from '@/components/global/pagination'
 import { ProductList } from '@/components/global/ProductList'
-import { GET_PRODUCTS } from '@/services/products'
+import { GET_PRODUCTS_PAGINATION } from '@/services/paginationProducts'
 import Image from 'next/image'
 
-export default async function MercadoLivrePage() {
-	const { products } = await GET_PRODUCTS()
+interface PageProps {
+	searchParams: Promise<{ page?: number }>
+}
 
-	const filterproducts = products.filter(
-		(p) => p.affiliate.name === 'Mercado Livre',
+export default async function MercadoLivrePage({
+	searchParams,
+}: PageProps) {
+	const { page } = await searchParams
+	const pageSize = Number(page) || 1
+	const first = 20
+	const affiliate = 'Mercado Livre'
+
+	const { products, totalCount } = await GET_PRODUCTS_PAGINATION(
+		affiliate,
+		pageSize,
+		first,
 	)
-
 	return (
 		<div className='lg:px-20 lg:py-4 px-0 py-0'>
 			<Image
@@ -23,10 +33,15 @@ export default async function MercadoLivrePage() {
 				quality={100}
 			/>
 			<div className='border border-border mt-4'>
-				<ProductList
-					title='Produtos Mercado Livre'
-					products={filterproducts}
-				/>
+				<ProductList title='Produtos Mercado Livre' products={products} />
+
+				<div className='p-2 w-full flex items-center justify-end'>
+					<PaginationButtons
+						limit={first}
+						page={pageSize}
+						total={totalCount}
+					/>
+				</div>
 			</div>
 		</div>
 	)

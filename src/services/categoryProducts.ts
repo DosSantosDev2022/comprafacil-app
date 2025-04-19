@@ -33,29 +33,37 @@ interface Data {
 	totalCount: number
 }
 
-export const GET_PRODUCTS = async (): Promise<Data> => {
+export const GET_PRODUCTS_BY_CATEGORY_PAGINATION = async (
+	category: string,
+	page: number,
+	pageSize: number,
+): Promise<Data> => {
 	const query = `
-    query MyQuery {
-      products(first:20,orderBy: createdAt_DESC){
+    query MyQuery($category: String, $first: Int, $skip: Int) {
+      products(
+        where: { category: { url: $category } }
+        first: $first
+        skip: $skip
+      ) {
         id
         slug
         title
         description
         affiliate {
-         name
-         image {
-             url
-           }
-         }
+          name
+          image {
+            url
+          }
+        }
         category {
-         url
+          url
         }
         url
         image {
           url
         }
       }
-        productsConnection {
+      productsConnection(where: { category: { url: $category } }) {
         aggregate {
           count
         }
@@ -63,17 +71,18 @@ export const GET_PRODUCTS = async (): Promise<Data> => {
     }
   `
 
-	/* const skip = (page - 1) * pageSize
-	const variables = { first: pageSize, skip } */
+	const skip = (page - 1) * pageSize
+	const variables = { category, first: pageSize, skip }
 
 	const response = await fetchHygraphQuery<HygraphResponse>(
 		query,
-		/* variables, */
+		variables,
 	)
+
 	const { products, productsConnection } = response
 
 	if (!products || !productsConnection) {
-		throw new Error('Failed to fetch projects or projectConnection')
+		throw new Error('Failed to fetch products or productsConnection')
 	}
 
 	const totalCount = productsConnection.aggregate.count
